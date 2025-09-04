@@ -9,9 +9,11 @@ import AddAccountModal from './components/AddAccountModal';
 import Icon from '../../components/AppIcon';
 import Button from '../../components/ui/Button';
 import { useContacts } from '../../contexts/ContactContext';
+import { useAccounts } from '../../contexts/AccountContext';
 
 const AccountManagement = () => {
   const { getContactCountByAccount } = useContacts();
+  const { accounts, addAccount } = useAccounts();
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedAccount, setSelectedAccount] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -27,8 +29,14 @@ const AccountManagement = () => {
     maxValue: ''
   });
 
-  // Mock data for accounts
-  const [accounts, setAccounts] = useState([
+  // Update contact counts with live data from context
+  const accountsWithLiveCounts = accounts.map(account => ({
+    ...account,
+    contacts: getContactCountByAccount(account.id)
+  }));
+
+  // Original mock data is now in AccountContext
+  const originalMockAccounts = [
     {
       id: 1,
       companyName: "Metro Manufacturing Corp",
@@ -381,7 +389,7 @@ const AccountManagement = () => {
       ],
       properties: []
     }
-  ]);
+  ];
 
   const tabs = [
     { id: 'overview', label: 'Account Overview', icon: 'Building2' },
@@ -390,7 +398,7 @@ const AccountManagement = () => {
   ];
 
   // Filter accounts based on search and filters
-  const filteredAccounts = accounts?.filter(account => {
+  const filteredAccounts = accountsWithLiveCounts?.filter(account => {
     const matchesSearch = account?.companyName?.toLowerCase()?.includes(searchQuery?.toLowerCase()) ||
                          account?.location?.toLowerCase()?.includes(searchQuery?.toLowerCase()) ||
                          account?.industry?.toLowerCase()?.includes(searchQuery?.toLowerCase());
@@ -497,12 +505,9 @@ const AccountManagement = () => {
   };
 
   const handleSaveAccount = (newAccount) => {
-    setAccounts(prevAccounts => {
-      const updatedAccounts = [...prevAccounts, newAccount];
-      // Auto-select the newly created account
-      setSelectedAccount(newAccount);
-      return updatedAccounts;
-    });
+    addAccount(newAccount);
+    // Auto-select the newly created account
+    setSelectedAccount(newAccount);
   };
 
   const handleCloseModal = () => {
@@ -511,10 +516,10 @@ const AccountManagement = () => {
 
   // Set initial selected account
   useEffect(() => {
-    if (accounts?.length > 0 && !selectedAccount) {
-      setSelectedAccount(accounts?.[0]);
+    if (accountsWithLiveCounts?.length > 0 && !selectedAccount) {
+      setSelectedAccount(accountsWithLiveCounts?.[0]);
     }
-  }, [accounts, selectedAccount]);
+  }, [accountsWithLiveCounts, selectedAccount]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -569,7 +574,7 @@ const AccountManagement = () => {
                   <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold text-foreground">Accounts</h2>
                     <div className="text-sm text-muted-foreground">
-                      {filteredAccounts?.length} of {accounts?.length}
+                      {filteredAccounts?.length} of {accountsWithLiveCounts?.length}
                     </div>
                   </div>
                 </div>

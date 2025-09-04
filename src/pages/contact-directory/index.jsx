@@ -11,9 +11,11 @@ import ContactSearch from './components/ContactSearch';
 import ContactActions from './components/ContactActions';
 import AddContactModal from './components/AddContactModal';
 import { useContacts } from '../../contexts/ContactContext';
+import { useAccounts } from '../../contexts/AccountContext';
 
 const ContactDirectory = ({ existingAccounts = [] }) => {
   const { contacts, addContact } = useContacts();
+  const { accounts } = useAccounts();
   const [filteredContacts, setFilteredContacts] = useState([]);
   const [selectedContact, setSelectedContact] = useState(null);
   const [selectedContacts, setSelectedContacts] = useState([]);
@@ -415,7 +417,7 @@ const ContactDirectory = ({ existingAccounts = [] }) => {
             isOpen={showAddModal}
             onClose={handleCloseAddModal}
             onSave={handleSaveContact}
-            existingAccounts={existingAccounts.length > 0 ? existingAccounts : defaultAccounts}
+            existingAccounts={accounts.length > 0 ? accounts : defaultAccounts}
           />
         </div>
       </main>

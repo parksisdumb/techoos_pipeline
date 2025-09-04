@@ -31,7 +31,7 @@ const Routes = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/opportunity-pipeline" element={<OpportunityPipeline />} />
         <Route path="/activity-tracking" element={<ActivityTracking />} />
-        <Route path="/contact-directory" element={<ContactDirectory existingAccounts={mockAccounts} />} />
+        <Route path="/contact-directory" element={<ContactDirectory />} />
         <Route path="/sales-dashboard" element={<SalesDashboard />} />
         <Route path="*" element={<NotFound />} />
       </RouterRoutes>
