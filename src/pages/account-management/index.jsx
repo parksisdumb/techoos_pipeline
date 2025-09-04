@@ -5,6 +5,7 @@ import AccountFilters from './components/AccountFilters';
 import AccountOverview from './components/AccountOverview';
 import ProjectTracking from './components/ProjectTracking';
 import TerritoryMap from './components/TerritoryMap';
+import AddAccountModal from './components/AddAccountModal';
 import Icon from '../../components/AppIcon';
 import Button from '../../components/ui/Button';
 
@@ -13,6 +14,7 @@ const AccountManagement = () => {
   const [selectedAccount, setSelectedAccount] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTerritory, setSelectedTerritory] = useState('all');
+  const [showAddModal, setShowAddModal] = useState(false);
   const [filters, setFilters] = useState({
     status: '',
     priority: '',
@@ -24,7 +26,7 @@ const AccountManagement = () => {
   });
 
   // Mock data for accounts
-  const [accounts] = useState([
+  const [accounts, setAccounts] = useState([
     {
       id: 1,
       companyName: "Metro Manufacturing Corp",
@@ -488,6 +490,23 @@ const AccountManagement = () => {
     setSelectedTerritory(territory);
   };
 
+  const handleAddAccount = () => {
+    setShowAddModal(true);
+  };
+
+  const handleSaveAccount = (newAccount) => {
+    setAccounts(prevAccounts => {
+      const updatedAccounts = [...prevAccounts, newAccount];
+      // Auto-select the newly created account
+      setSelectedAccount(newAccount);
+      return updatedAccounts;
+    });
+  };
+
+  const handleCloseModal = () => {
+    setShowAddModal(false);
+  };
+
   // Set initial selected account
   useEffect(() => {
     if (accounts?.length > 0 && !selectedAccount) {
@@ -523,6 +542,7 @@ const AccountManagement = () => {
                   iconName="Plus"
                   iconPosition="left"
                   iconSize={16}
+                  onClick={handleAddAccount}
                 >
                   Add Account
                 </Button>
@@ -664,6 +684,13 @@ const AccountManagement = () => {
           </div>
         </div>
       </div>
+      
+      {/* Add Account Modal */}
+      <AddAccountModal
+        isOpen={showAddModal}
+        onClose={handleCloseModal}
+        onSave={handleSaveAccount}
+      />
     </div>
   );
 };
