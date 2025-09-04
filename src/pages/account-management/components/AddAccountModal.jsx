@@ -34,6 +34,8 @@ const AddAccountModal = ({ isOpen, onClose, onSave }) => {
     { value: 'Finance', label: 'Finance' },
     { value: 'Government', label: 'Government' },
     { value: 'Hospitality', label: 'Hospitality' },
+    { value: 'Property Management', label: 'Property Management' },
+    { value: 'REIT/Institutional Investment', label: 'REIT/Institutional Investment' },
     { value: 'Other', label: 'Other' }
   ];
 
