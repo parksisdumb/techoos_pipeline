@@ -3,6 +3,7 @@ import { BrowserRouter, Routes as RouterRoutes, Route } from "react-router-dom";
 import ScrollToTop from "components/ScrollToTop";
 import ErrorBoundary from "components/ErrorBoundary";
 import NotFound from "pages/NotFound";
+import AuthPage from './pages/auth';
 import AccountManagement from './pages/account-management';
 import LoginPage from './pages/login';
 import OpportunityPipeline from './pages/opportunity-pipeline';
@@ -28,6 +29,7 @@ const Routes = () => {
         {/* Define your route here */}
         <Route path="/" element={<AccountManagement />} />
         <Route path="/account-management" element={<AccountManagement />} />
+        <Route path="/auth" element={<AuthPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/opportunity-pipeline" element={<OpportunityPipeline />} />
         <Route path="/activity-tracking" element={<ActivityTracking />} />

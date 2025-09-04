@@ -91,7 +91,7 @@ const LoginForm = () => {
   };
 
   const handleCreateAccount = () => {
-    alert('Account registration would be implemented here. For demo, use existing credentials.');
+    navigate('/auth?mode=signup');
   };
 
   return (

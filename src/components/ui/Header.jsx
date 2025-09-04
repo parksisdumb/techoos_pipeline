@@ -62,7 +62,7 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    navigate('/login');
+    navigate('/auth');
   };
 
   const isActive = (path) => location?.pathname === path;
