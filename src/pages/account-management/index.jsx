@@ -8,8 +8,10 @@ import TerritoryMap from './components/TerritoryMap';
 import AddAccountModal from './components/AddAccountModal';
 import Icon from '../../components/AppIcon';
 import Button from '../../components/ui/Button';
+import { useContacts } from '../../contexts/ContactContext';
 
 const AccountManagement = () => {
+  const { getContactCountByAccount } = useContacts();
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedAccount, setSelectedAccount] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -37,7 +39,7 @@ const AccountManagement = () => {
       employeeCount: 450,
       totalValue: "$125,000",
       activeProjects: 3,
-      contacts: 8,
+      contacts: getContactCountByAccount(1),
       lastActivity: 2,
       lastContactDate: "Dec 2, 2024",
       website: "https://metromanufacturing.com",
@@ -147,7 +149,7 @@ const AccountManagement = () => {
       employeeCount: 125,
       totalValue: "$75,000",
       activeProjects: 1,
-      contacts: 4,
+      contacts: getContactCountByAccount(2),
       lastActivity: 7,
       lastContactDate: "Nov 27, 2024",
       website: "https://riversideretail.com",
@@ -220,7 +222,7 @@ const AccountManagement = () => {
       employeeCount: 280,
       totalValue: "$95,000",
       activeProjects: 2,
-      contacts: 6,
+      contacts: getContactCountByAccount(3),
       lastActivity: 1,
       lastContactDate: "Dec 3, 2024",
       website: "https://techhub.com",
@@ -294,7 +296,7 @@ const AccountManagement = () => {
       employeeCount: 85,
       totalValue: "$45,000",
       activeProjects: 0,
-      contacts: 3,
+      contacts: getContactCountByAccount(4),
       lastActivity: 45,
       lastContactDate: "Oct 19, 2024",
       website: "https://centraldist.com",
@@ -329,7 +331,7 @@ const AccountManagement = () => {
       employeeCount: 320,
       totalValue: "$110,000",
       activeProjects: 2,
-      contacts: 7,
+      contacts: getContactCountByAccount(5),
       lastActivity: 5,
       lastContactDate: "Nov 29, 2024",
       website: "https://westsidemedical.com",
